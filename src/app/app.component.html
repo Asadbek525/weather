@@ -1,10 +1,11 @@
-<div class="h-[100vh] w-full flex flex-col">
+<div class="h-[100vh] w-full flex flex-col p-8">
   <div class="flex gap-2">
-    <a class="p-2" routerLink="daily" routerLinkActive="active">
+    <a class="button" routerLink="daily" routerLinkActive="active">
       <span class="text-sm">Kunlik</span>
     </a>
-    <a class="p-2" routerLink="weekly" routerLinkActive="active">
+    <a class="button" routerLink="weekly" routerLinkActive="active">
       <span class="text-sm">Haftalik</span>
     </a>
   </div>
+  <router-outlet></router-outlet>
 </div>
