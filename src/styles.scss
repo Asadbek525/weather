@@ -3,8 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'ngx-toastr/toastr';
-@import "../styles/ngx-toastr.scss";
+@import '../node_modules/ngx-toastr/toastr.css';
+@import "styles/ngx-toastr";
 
 // component styles
 

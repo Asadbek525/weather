@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { LocationService } from './core/services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'weather';
+export class AppComponent implements OnInit {
+  constructor(private locationService: LocationService) {}
+
+  async ngOnInit() {
+    const res = await this.locationService.getLocation();
+  }
 }
