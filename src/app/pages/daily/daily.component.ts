@@ -38,6 +38,7 @@ export class DailyComponent implements OnInit, OnDestroy {
     },
   };
   cnt$ = new BehaviorSubject<number>(7);
+  cityName = '';
 
   constructor(private weatherService: WeatherService) {}
 
@@ -64,6 +65,7 @@ export class DailyComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.lineChartData = this.processDailyData(res.list);
+          this.cityName = res.city.name;
         }
       });
   }
