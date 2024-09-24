@@ -11,6 +11,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { baseUrlInterceptor } from './core/interceptors/base-url.interceptor';
 import { LocationService } from './core/services/location.service';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export function initializeLocation(locationService: LocationService) {
   return (): Promise<void> => locationService.initializeLocation();
@@ -29,5 +30,6 @@ export const appConfig: ApplicationConfig = {
       deps: [LocationService],
       multi: true,
     },
+    provideCharts(withDefaultRegisterables()),
   ],
 };

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { LocationService } from './location.service';
 import { environment } from '../../../environments/environment';
+import { DailyResponse } from '../../shared/models/weather.model';
+import { catchError, debounceTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,12 +23,17 @@ export class WeatherService {
   }
 
   getDailyForecast(cnt = 7) {
-    return this.apiService.get('/daily', {
-      lat: this.lat,
-      lon: this.lon,
-      appid: this.apiKey,
-      cnt,
-      units: 'metric',
-    });
+    return this.apiService
+      .get<DailyResponse>('/daily', {
+        lat: this.lat,
+        lon: this.lon,
+        appid: this.apiKey,
+        cnt,
+        units: 'metric',
+      })
+      .pipe(
+        debounceTime(500),
+        catchError(this.apiService.handleError('getDailyForecast', undefined))
+      );
   }
 }
