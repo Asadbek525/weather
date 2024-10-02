@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private locationService: LocationService) {}
 
   async ngOnInit() {
-    const res = await this.locationService.getLocation();
+    await this.locationService.initializeLocation();
   }
 }

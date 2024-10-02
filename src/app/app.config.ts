@@ -1,8 +1,4 @@
-import {
-  APP_INITIALIZER,
-  ApplicationConfig,
-  provideZoneChangeDetection,
-} from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,12 +6,7 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { baseUrlInterceptor } from './core/interceptors/base-url.interceptor';
-import { LocationService } from './core/services/location.service';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-
-export function initializeLocation(locationService: LocationService) {
-  return (): Promise<void> => locationService.initializeLocation();
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,12 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAnimations(),
     provideHttpClient(withInterceptors([baseUrlInterceptor])),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeLocation,
-      deps: [LocationService],
-      multi: true,
-    },
     provideCharts(withDefaultRegisterables()),
   ],
 };

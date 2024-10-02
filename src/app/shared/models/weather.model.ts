@@ -6,6 +6,55 @@ export interface DailyResponse {
   list: Daily[];
 }
 
+export interface HourlyResponse {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: Hourly[];
+}
+
+export interface Hourly {
+  dt: number;
+  main: Main;
+  weather: Weather[];
+  clouds: Clouds;
+  wind: Wind;
+  visibility: number;
+  pop: number;
+  rain: Rain;
+  sys: Sys;
+}
+
+export interface Sys {
+  pod: string;
+}
+
+export interface Rain {
+  '1h': number;
+}
+
+export interface Wind {
+  speed: number;
+  deg: number;
+  gust: number;
+}
+
+interface Clouds {
+  all: number;
+}
+
+export interface Main {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  sea_level: number;
+  grnd_level: number;
+  humidity: number;
+  temp_kf: number;
+}
+
 export interface Temp {
   day: number;
   min: number;

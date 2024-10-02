@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { LocationService } from './location.service';
 import { environment } from '../../../environments/environment';
-import { DailyResponse } from '../../shared/models/weather.model';
-import { catchError, debounceTime } from 'rxjs';
+import {
+  DailyResponse,
+  HourlyResponse,
+} from '../../shared/models/weather.model';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +15,7 @@ export class WeatherService {
   apiKey: string;
   lat: number;
   lon: number;
+  units: string;
 
   constructor(
     private apiService: ApiService,
@@ -20,6 +24,7 @@ export class WeatherService {
     this.apiKey = environment.apiKey;
     this.lat = this.locationService.getLocation().latitude;
     this.lon = this.locationService.getLocation().longitude;
+    this.units = environment.units;
   }
 
   getDailyForecast(cnt = 7) {
@@ -29,11 +34,23 @@ export class WeatherService {
         lon: this.lon,
         appid: this.apiKey,
         cnt,
-        units: 'metric',
+        units: this.units,
       })
       .pipe(
-        debounceTime(500),
         catchError(this.apiService.handleError('getDailyForecast', undefined))
+      );
+  }
+
+  getHourlyForecast() {
+    return this.apiService
+      .get<HourlyResponse>('/hourly', {
+        lat: this.lat,
+        lon: this.lon,
+        appid: this.apiKey,
+        units: this.units,
+      })
+      .pipe(
+        catchError(this.apiService.handleError('getHourlyForecast', undefined))
       );
   }
 }

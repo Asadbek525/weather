@@ -43,7 +43,8 @@ export class LocationService {
     if (this.latitude && this.longitude) {
       return { latitude: this.latitude, longitude: this.longitude };
     } else {
-      throw new Error('Location not initialized');
+      console.warn('No location stored, using fallback location.');
+      return this.useDefaultLocation(); // Use Tashkent as fallback
     }
   }
 
@@ -51,5 +52,6 @@ export class LocationService {
   private useDefaultLocation() {
     this.latitude = this.defaultLocation.latitude;
     this.longitude = this.defaultLocation.longitude;
+    return { latitude: this.latitude, longitude: this.longitude };
   }
 }
