@@ -10,6 +10,7 @@ export interface HourlyResponse {
   cod: string;
   message: number;
   cnt: number;
+  city: City;
   list: Hourly[];
 }
 
@@ -107,4 +108,6 @@ export interface City {
   population: number;
   timezone: number;
   coord: Coord;
+  sunrise: number;
+  sunset: number;
 }
